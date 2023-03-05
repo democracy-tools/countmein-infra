@@ -15,10 +15,10 @@ func CreateTableAnnouncement() error {
 				{Name: "user_device_type", Type: bigquery.StringFieldType},
 				{Name: "seen_device_id", Type: bigquery.StringFieldType},
 				{Name: "seen_device_type", Type: bigquery.StringFieldType},
-				{Name: "location_latitute", Type: bigquery.FloatFieldType},
+				{Name: "location_latitude", Type: bigquery.FloatFieldType},
 				{Name: "location_longitude", Type: bigquery.FloatFieldType},
-				{Name: "user_timestamp", Type: bigquery.StringFieldType},
-				{Name: "server_timestamp", Type: bigquery.StringFieldType},
+				{Name: "user_time", Type: bigquery.IntegerFieldType},
+				{Name: "server_time", Type: bigquery.IntegerFieldType},
 			}})
 }
 
