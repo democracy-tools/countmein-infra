@@ -9,5 +9,6 @@ import (
 
 func TestOnBoarding(t *testing.T) {
 
-	require.NoError(t, pubsub.CreateProtoSchema("democracy-tools", "announcement", "announcement.pb"))
+	require.NoError(t, pubsub.GetInstance().CreateProtoSchema("announcement", "announcement.pb"))
+	require.NoError(t, pubsub.GetInstance().Close())
 }
