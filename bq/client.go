@@ -2,16 +2,18 @@ package bq
 
 import (
 	"context"
-	"os"
 	"sync"
 
 	"cloud.google.com/go/bigquery"
+	"github.com/democracy-tools/countmein-infra/env"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/option"
 )
 
-const TableAnnouncement = "announcement"
+const (
+	TableAnnouncement = "announcement"
+)
 
 var (
 	singleton *ClientWrapper
@@ -26,19 +28,13 @@ type ClientWrapper struct {
 func GetInstance() *ClientWrapper {
 
 	once.Do(func() {
-		const key = "BIGQUERY_KEY"
-		token := os.Getenv(key)
-		if key == "" {
-			log.Fatalf("failed to get %q environment variable", key)
-		}
-
-		conf, err := google.JWTConfigFromJSON([]byte(token), bigquery.Scope)
+		conf, err := google.JWTConfigFromJSON(env.GetToken(), bigquery.Scope)
 		if err != nil {
 			log.Fatalf("failed to config bigquery JWT with %q", err)
 		}
 
 		ctx := context.Background()
-		client, err := bigquery.NewClient(ctx, "democracy-tools", option.WithTokenSource(conf.TokenSource(ctx)))
+		client, err := bigquery.NewClient(ctx, env.GetProject(), option.WithTokenSource(conf.TokenSource(ctx)))
 		if err != nil {
 			log.Fatalf("failed to create bigquery client with %q", err)
 		}
@@ -70,4 +66,9 @@ func (c *ClientWrapper) DeleteTable(table string) error {
 	}
 
 	return err
+}
+
+func (c *ClientWrapper) Close() error {
+
+	return c.client.Close()
 }

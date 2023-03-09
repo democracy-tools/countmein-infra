@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	cloud.google.com/go/bigquery v1.47.0
+	cloud.google.com/go/pubsub v1.27.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/oauth2 v0.5.0
