@@ -30,11 +30,11 @@ func GetInstance() *ClientWrapper {
 	once.Do(func() {
 		conf, err := google.JWTConfigFromJSON(env.GetToken(), bigquery.Scope)
 		if err != nil {
-			log.Fatalf("failed to config bigquery JWT with %q", err)
+			log.Fatalf("failed to config bigquery JWT with '%v'", err)
 		}
 
 		ctx := context.Background()
-		client, err := bigquery.NewClient(ctx, env.GetProject(), option.WithTokenSource(conf.TokenSource(ctx)))
+		client, err := bigquery.NewClient(ctx, env.Project, option.WithTokenSource(conf.TokenSource(ctx)))
 		if err != nil {
 			log.Fatalf("failed to create bigquery client with %q", err)
 		}
