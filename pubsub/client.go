@@ -79,8 +79,9 @@ func (c *PubSubClientWrapper) CreateBigQuerySubscription(id string, topic *pubsu
 	sub, err := c.client.CreateSubscription(context.Background(), id, pubsub.SubscriptionConfig{
 		Topic: topic,
 		BigQueryConfig: pubsub.BigQueryConfig{
-			Table:         fmt.Sprintf("%s.%s.%s", env.Project, env.Dataset, table),
-			WriteMetadata: true,
+			Table:          fmt.Sprintf("%s.%s.%s", env.Project, env.Dataset, table),
+			WriteMetadata:  true,
+			UseTopicSchema: true,
 		},
 	})
 	if err != nil {
