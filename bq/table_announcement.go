@@ -19,6 +19,14 @@ func CreateTableAnnouncement() error {
 				{Name: "location_longitude", Type: bigquery.FloatFieldType},
 				{Name: "user_time", Type: bigquery.IntegerFieldType},
 				{Name: "server_time", Type: bigquery.IntegerFieldType},
+				// *** pubsub publisher fields ***
+				{Name: "attributes", Type: bigquery.StringFieldType},
+				{Name: "publish_time", Type: bigquery.TimestampFieldType},
+				{Name: "subscription_name", Type: bigquery.StringFieldType},
+				// pubsub might send duplicate messages due to its at least once delivery property,
+				// this will create duplicate records in BigQuery which can be identified
+				// using the message_id column
+				{Name: "message_id", Type: bigquery.StringFieldType},
 			}})
 }
 

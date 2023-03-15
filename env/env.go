@@ -1,6 +1,6 @@
 package env
 
-func GetProject() string {
-
-	return "democracy-tools"
-}
+const (
+	Project = "democracy-tools"
+	Dataset = "dev"
+)

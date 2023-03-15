@@ -15,6 +15,7 @@ func TestOnBoarding(t *testing.T) {
 
 func TestOffBoarding(t *testing.T) {
 
+	t.Skip("REMOVE IF YOU WANT TO DELETE DATA FROM BIG-QUERY")
 	require.NoError(t, bq.DeleteTableAnnouncement())
 	require.NoError(t, bq.GetInstance().Close())
 }
